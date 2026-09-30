@@ -80,7 +80,6 @@ nav a:hover {
     transition: transform 0.3s ease;
     cursor: zoom-in;
 
-    /* Make the image expand from its left side */
     transform-origin: left center;
 
     position: relative;
