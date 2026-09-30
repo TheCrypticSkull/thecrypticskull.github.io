@@ -7,6 +7,25 @@
     <title>ADLab</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+    .expandable-img {
+    width: 200px;
+    height: auto;
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+
+    /* Make the image expand from its left side */
+    transform-origin: left center;
+
+    position: relative;
+    z-index: 1;
+}
+
+.expandable-img:hover {
+    transform: scale(3);
+    z-index: 10;
+}
+    </style>
 </head>
 
 <body>
@@ -65,6 +84,7 @@
             I grabbed the equipment, setup the networks, and configured the firewall to allow traffic between the computers. I learned about Cred SSP authentication and setup my school laptop to pass credetials to the workstation laptop.
             Once i got the hardware setip and configured, i was able to connect to cwserver.local from cschool.local.
         </p>
+        <img src="./assets/networking_setup.png" alt="Description" loading="lazy" class="expandable-img">
         <p>
             The next step was internetworking the vms and the physical adapter. Before, i was able to use an external network passed to my pfsense which handels the internal private network switch of hyperv.  
             That wouldnt work now that i have two seperate networks 10.0.1.0/31 for connecting the computers and 10.0.0.0/24 for managing the internal network of the vms. My solution im not proud of, but it works for now and will be fixed in the future.
