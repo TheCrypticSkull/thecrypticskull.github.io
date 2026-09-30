@@ -1,0 +1,74 @@
+:root {
+    --background: #121212;
+    --surface: #1e1e1e;
+    --text: #e0e0e0;
+    --link: #66b3ff;
+}
+
+body {
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+p {
+  max-width: 100ch;
+  overflow-wrap: break-word;
+  white-space: normal;  
+}
+
+
+header,
+nav,
+footer {
+    background: var(--surface);
+}
+
+a {
+    color: var(--link);
+}
+
+nav {
+    background-color: #1e1e1e;
+
+    display: flex;
+    gap: 25px;
+
+    padding: 15px 30px;
+}
+
+nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #66b3ff;
+}
+
+.project-list {
+    list-style: none;
+    padding: 0;
+}
+
+.project-list li {
+    margin-bottom: 15px;
+}
+
+.project-list a {
+    display: inline-block;
+    padding: 12px 18px;
+
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.project-list a:hover {
+    background-color: #2a2a2a;
+    color: #66b3ff;
+}
