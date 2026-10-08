@@ -36,14 +36,14 @@ th, td {
         <h1>Active Directory Adventures</h1>
         <p>
             In my <a href="/projects/portable-homelab/">Portable Homelab</a> project I talked about setting up the hardware side of things. 
-            I decided that it was too much to talk about in one project so i split them up. If you want to know the hardware go to <a href="/projects/portable-homelab/">this page.</a>
+            I decided that it was too much to talk about in one project, so I split it up. If you want to know about the hardware, go to <a href="/projects/portable-homelab/">this page.</a>
             <br>
-            So what is my goal for this project. I want to learn active directory. I asked my teachers and got some guidance along with information from my book which has vm guidelines for the labs.
-            Whith that i started the first version of my ADLab.
+            So what is my goal for this project? I want to learn Active Directory. I asked my teachers and got some guidance, along with information from my book, which has VM guidelines for the labs.
+            With that, I started the first version of my ADLab.
         </p>
-        <h2>The inital setup</h2>
+        <h2>The initial setup</h2>
+        <p>I created 3 VMs:</p>
         <table>
-            I created 3 vms:
             <tr>
                 <th>Name</th>
                 <th>OS</th>
@@ -51,40 +51,41 @@ th, td {
                 <th>Purpose</th>
             </tr>
             <tr>
-                <td>PFSense</td>
-                <td>PFSense</td>
+                <td>pfSense</td>
+                <td>pfSense</td>
                 <td>10.0.0.1</td>
-                <td>This is just to route traffic between networks</td>
+                <td>This is just to route traffic between networks.</td>
             </tr>
             <tr>
                 <td>DC01</td>
                 <td>Windows Server 2025</td>
                 <td>10.0.0.10</td>
-                <td>This is the main pc that i will probalby use, Its the root domain controller</td>
+                <td>This is the main PC that I will probably use. It's the root domain controller.</td>
             </tr>
             <tr>
                 <td>CLIENT01</td>
                 <td>Windows 11 Pro</td>
                 <td>10.0.0.11</td>
-                <td>This will be the first client on the network</td>
+                <td>This will be the first client on the network.</td>
             </tr>
         </table>
 
         <p>
-            The first thing i configured was the PFSense firewall. I set it up so that it would take the wifi and translate it to an private hyperv switch.
-            I created the internal network with the IP range 10.0.0.1/24 and connected the v-switches. I aquired a windows server eval and a windows 11 iso and created the other two vms.
-            As stated in the table each device was named and given an ip. Since pfsense was used the dns requests were handled by it, but i decided id figure that out when i got AD DS installed.<br>
-            Now it was time for Active Directory. I loaded up DC01 and installed AD DS and promoted it to domain controler. I setup the domain adlab.test and enabled dns.
-            With that done i setup the CLIENT01 and connected it to the domain. I was able to ping DC01 from CLIENT01 at this point, but thats mostly because of pfsense. PFSense still handling most of the networking.
-            TO fix this, I installed DHCP service on DC01 set the scope under adlab.test and configured pfsense to redirect DHCP and DNS requests to DC01. 
-            I was now able to connect CLIENT01 with dhcp without assigning the ip manually. 
+            The first thing I configured was the pfSense firewall. I set it up so that it would take the Wi-Fi and translate it to a private Hyper-V switch.
+            I created the internal network with the IP range 10.0.0.0/24 and connected the v-switches. I acquired a Windows Server eval and a Windows 11 ISO and created the other two VMs.
+            As stated in the table, each device was named and given an IP. Since pfSense was used, the DNS requests were handled by it, but I decided I'd figure that out when I got AD DS installed.<br>
+            Now it was time for Active Directory. I loaded up DC01, installed AD DS, and promoted it to domain controller. I set up the domain adlab.test and enabled DNS.
+            With that done, I set up CLIENT01 and connected it to the domain. I was able to ping DC01 from CLIENT01 at this point, but that's mostly because of pfSense. pfSense was still handling most of the networking.
+            To fix this, I installed the DHCP service on DC01, set the scope under adlab.test, and configured pfSense to redirect DHCP and DNS requests to DC01.
+            I was now able to connect CLIENT01 with DHCP without assigning the IP manually.
         </p>
 
         <h3>TO BE CONTINUED</h3>
         <p>
-            WOrking on this page as of 9/31/2026
-            <br>
-            <i>Im putting this here as a marker, im not finished with this project im working on it in real time. I will update the site when i get new things to talk about</i>
+            ====================================================
+            <br>   <i>I AM ACTIVELY WORKING ON THIS PAGE</i><br>
+            <br>  <i>COME BACK IN THE FUTURE TO SEE THE REST</i><br>
+            ====================================================
         </p>
     </main>
     
