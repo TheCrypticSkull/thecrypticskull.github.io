@@ -20,42 +20,62 @@
     <main>
         <h1>This is where I talk about the things I've done and plan to do with the website</h1>
         <p>
-            Now I know this site isn't pretty, but it's mine. I will figure out spelling and grammar later.
+            Now I know this site isn't pretty, but it's mine.
             I created this site to show off my projects and keep everything organized.
-            I have lots of projects and 0 documentation, which means instead of science, I was just messing around.
+            I have lots of projects and zero documentation.
             I wanted to change that, and I had an idea of how.
         </p>
 
         <p>
             I've been using this note-taking tool called <a href="https://obsidian.md/">Obsidian</a>, which uses the Markdown file format to structure and modify text and documents.
-            It has additional features that allow you to link notes to sort and view a live map of the notes. Each node is clickable and will take you to its respective document.
-            Here is an example of a parts map that I created that shows the list of parts I own and what device, if any, they're in.
+            It has additional features that allow you to link notes together and view them as a live map. Each node is clickable and will take you to its respective document.
+            Here is an example of a parts map I created that shows the list of parts I own and what device, if any, they're in.
         </p>
         <img src="/projects/this-website/pictures/parts-map.png" alt="Image of a map of linked notes" class="expandable-img">
         <p>
             Markdown is a very fast and useful language. It's basically just a reskin of HTML, which is what made me realize making a website doesn't need to be complicated.
+            I was already making webpages; I just needed to turn them from Markdown to HTML, and boom, I had a site.
             I wanted to go with something simple, so I set some guidelines.
-            <ul>
-                <li>Minimal to no JS</li>
+        </p>
+        <ul>
+            <li>Minimal to no JS
                 <ul>
                     <li>I didn't want to deal with security because this was supposed to be a local nginx instance.</li>
+                    <li>I'll figure out how to use it safely later; I want a place to put my stuff first.</li>
                 </ul>
-                <li>I want to write as much of the code as possible</li>
+            </li>
+            <li>I want to write as much of the code as possible
                 <ul>
-                    <li>I could use AI, I could use WordPress, I could use a website builder, but I just don't find that fun.</li>
+                    <li>I could use a prefab, or WordPress, or a website builder, but I just don't find that fun.</li>
                     <li>I actually want to know what is happening.</li>
                 </ul>
-                <li>Incredibly lightweight</li>
+            </li>
+            <li>Incredibly lightweight
                 <ul>
                     <li>I want everything to be small and snappy, which is part of the reason I wanted to write the code by hand.</li>
                 </ul>
-            </ul>  
+            </li>
+        </ul>
+        <p>
+            I was originally going to use an nginx container with a proxy to host the server locally.
+            After a bit of research, I discovered that GitHub Pages would suit my needs just fine.
+            I still needed a way to test the site locally, so I created a folder named website and loaded it with a basic index.html file.
+            I used an nginx Docker container to host the folder on localhost and was able to load the test page.
         </p>
         <p>
-            ====================================================
+            With that working, I added a homepage, about me page, and a projects page.
+            I didn't put much on them, just a nav bar and some introductory text.
+            In the projects folder, I have a bunch of subfolders that hold my writeups on each project along with that page's resources like pictures.
+        </p>
+        <p>
+            There isn't much more to say about the site. I'm studying up on how I can have an interactive comment box or contact box using Cloudflare or something similar.
+            I just need to catch up on documenting my latest projects. I will probably update this page when I am able to add more features to the site, but as of right now, I am just serving files.
+
+
+            <!-- ====================================================
             <br>   <i>I AM ACTIVELY WORKING ON THIS PAGE</i><br>
             <br>   <i>COME BACK IN THE FUTURE TO SEE THE REST</i><br>
-            ====================================================
+            ==================================================== -->
         </p>
     </main>
 
