@@ -41,52 +41,228 @@ th, td {
             So what is my goal for this project? I want to learn Active Directory. I asked my teachers and got some guidance, along with information from my book, which has VM guidelines for the labs.
             With that, I started the first version of my ADLab.
         </p>
-        <h2>The initial setup</h2>
-        <p>I created 3 VMs:</p>
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>OS</th>
-                <th>IP</th>
-                <th>Purpose</th>
-            </tr>
-            <tr>
-                <td>pfSense</td>
-                <td>pfSense</td>
-                <td>10.0.0.1</td>
-                <td>This is just to route traffic between networks.</td>
-            </tr>
-            <tr>
-                <td>DC01</td>
-                <td>Windows Server 2025</td>
-                <td>10.0.0.10</td>
-                <td>This is the main PC that I will probably use. It's the root domain controller.</td>
-            </tr>
-            <tr>
-                <td>CLIENT01</td>
-                <td>Windows 11 Pro</td>
-                <td>10.0.0.11</td>
-                <td>This will be the first client on the network.</td>
-            </tr>
-        </table>
+        <div class="section">
+            <h2>The initial setup</h2>
+            <p>I created 3 VMs:</p>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>OS</th>
+                    <th>IP</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>pfSense</td>
+                    <td>pfSense</td>
+                    <td>10.0.0.1</td>
+                    <td>This is just to route traffic between networks.</td>
+                </tr>
+                <tr>
+                    <td>DC01</td>
+                    <td>Windows Server 2025</td>
+                    <td>10.0.0.10</td>
+                    <td>This is the main PC that I will probably use. It's the root domain controller.</td>
+                </tr>
+                <tr>
+                    <td>CLIENT01</td>
+                    <td>Windows 11 Pro</td>
+                    <td>10.0.0.11</td>
+                    <td>This will be the first client on the network.</td>
+                </tr>
+            </table>
 
-        <p>
-            The first thing I configured was the pfSense firewall. I set it up so that it would take the Wi-Fi and translate it to a private Hyper-V switch.
-            I created the internal network with the IP range 10.0.0.0/24 and connected the v-switches. I acquired a Windows Server eval and a Windows 11 ISO and created the other two VMs.
-            As stated in the table, each device was named and given an IP. Since pfSense was used, the DNS requests were handled by it, but I decided I'd figure that out when I got AD DS installed.<br>
-            Now it was time for Active Directory. I loaded up DC01, installed AD DS, and promoted it to domain controller. I set up the domain adlab.test and enabled DNS.
-            With that done, I set up CLIENT01 and connected it to the domain. I was able to ping DC01 from CLIENT01 at this point, but that's mostly because of pfSense. pfSense was still handling most of the networking.
-            To fix this, I installed the DHCP service on DC01, set the scope under adlab.test, and configured pfSense to redirect DHCP and DNS requests to DC01.
-            I was now able to connect CLIENT01 with DHCP without assigning the IP manually.
-        </p>
+            <p>
+                The first thing I configured was the pfSense firewall. I set it up so that it would take the Wi-Fi and translate it to a private Hyper-V switch.
+                I created the internal network with the IP range 10.0.0.0/24 and connected the v-switches. I acquired a Windows Server eval and a Windows 11 ISO and created the other two VMs.
+                As stated in the table, each device was named and given an IP. Since pfSense was used, the DNS requests were handled by it, but I decided I'd figure that out when I got AD DS installed.<br>
+                Now it was time for Active Directory. I loaded up DC01, installed AD DS, and promoted it to domain controller. I set up the domain adlab.test and enabled DNS.
+                With that done, I set up CLIENT01 and connected it to the domain. I was able to ping DC01 from CLIENT01 at this point, but that's mostly because of pfSense. pfSense was still handling most of the networking.
+                To fix this, I installed the DHCP service on DC01, set the scope under adlab.test, and configured pfSense to redirect DHCP and DNS requests to DC01.
+                I was now able to connect CLIENT01 with DHCP without assigning the IP manually.
+                <br>With the devices up, I was able to get started with users and permissions. 
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Employee</th>
+                    <th>Username</th>
+                    <th>Department</th>
+                    <th>Job</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alice Johnson</td>
+                        <td><code>ajohnson</code></td>
+                        <td>Accounting</td>
+                        <td>Accountant</td>
+                    </tr>
+                    <tr>
+                        <td>Bob Smith</td>
+                        <td><code>bsmith</code></td>
+                        <td>Accounting</td>
+                        <td>Accounting Manager</td>
+                    </tr>
+                    <tr>
+                        <td>Carlos Martinez</td>
+                        <td><code>cmartinez</code></td>
+                        <td>IT</td>
+                        <td>Help Desk</td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Miller</td>
+                        <td><code>smiller</code></td>
+                        <td>IT</td>
+                        <td>Systems Administrator</td>
+                    </tr>
+                    <tr>
+                        <td>David Wilson</td>
+                        <td><code>dwilson</code></td>
+                        <td>Sales</td>
+                        <td>Sales Representative</td>
+                    </tr>
+                    <tr>
+                        <td>Emily Davis</td>
+                        <td><code>edavis</code></td>
+                        <td>Sales</td>
+                        <td>Sales Manager</td>
+                    </tr>
+                    <tr>
+                        <td>Michael Brown</td>
+                        <td><code>mbrown</code></td>
+                        <td>Management</td>
+                        <td>CEO</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                I created these users in <dfn title="Active Directory Users and Computers">ADUC</dfn> and sorted them into organizational units.
+                I turned on CLIENT01 and was able to log in to each user account. Now I needed permissions. I learned about <dfn title="Account -> Global -> Domain Local -> Permissions">Microsoft AGDLP</dfn>, which is the best practice Microsoft recommends for setting up permissions.
+                So I created Accounting, IT, Management, and Sales global groups and assigned the respective users to each GG.
+                I then created Domain Local Groups to assign to the Global Groups to give permissions. I didn't have much to grant permission to, so I just created some that would allow modification of folders.
+                I didn't have any folders to share, however, so I needed to get that working.
+                To do that, I needed more power, which is why I decided to go on a side quest to build the portable homelab.
+            </p>
+            
+        </div>
+        <div>
+            <h2>Internetworked Design: Split setup</h2>
+            <p>
+                I have a second computer connected to my school laptop at this point. If you want details, go <a href="/projects/portable-homelab/">here and see section 2.</a>
+                Now that I had a second computer, I needed to network the devices so they could talk to each other.
+                I already had the 10.0.1.0/31 network connecting the two computers, so I decided to just use that network.
+                I set up the external virtual switch in Hyper-V and linked them to the Ethernet port.
+                I configured pfSense to use the Ethernet port as LAN2 and then set up a firewall rule to allow traffic between the two networks.
+                <br>Because DHCP and DNS forwarding were set up on the pfSense network, I was able to just add the new network scope to DC01 and connect devices to the new external network. 
+            </p>
 
+            <p>The new VMs:</p>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>OS</th>
+                    <th>IP</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>FS01</td>
+                    <td>Windows Server 2025</td>
+                    <td>10.0.1.10</td>
+                    <td>This is a file server with a second storage drive attached.</td>
+                </tr>
+                <tr>
+                    <td>CLIENT02</td>
+                    <td>Windows 11 Pro</td>
+                    <td>DHCP</td>
+                    <td>This is a client on the second network to test the connectivity of the network.</td>
+                </tr>
+            </table>
+            <p>
+                With these VMs set up, I could start to work on group permissions.
+                I created an ADLab OU and created a new layout for the Active Directory tree.
+                I separated the objects into their respective OUs as shown below.
+            </p>
+            <ul>
+                adlab.test
+                <ul>
+                    <li>ADLabCorp
+                        <ul>
+                        <li>Users
+                            <ul>
+                            <li>IT
+                                <ul>
+                                    <li>cmartinez</li>
+                                    <li>smiller</li>
+                                </ul>
+                            </li>
+                            <li>Accounting
+                                <ul>
+                                    <li>ajohnson</li>
+                                    <li>bsmith</li>
+                                </ul>
+                            </li>
+                            <li>Sales
+                                <ul>
+                                    <li>dwilson</li>
+                                    <li>edavis</li>
+                                </ul>
+                            </li>
+                            <li>Management
+                                <ul>
+                                    <li>mbrown</li>
+                                </ul>
+                            </li>
+                            </ul>
+                        </li>
+                        <li>Computers
+                            <ul>
+                            <li>Workstations
+                                <ul>
+                                    <li>CLIENT01</li>
+                                    <li>CLIENT02</li>
+                                </ul>
+                            </li>
+                            <li>Servers
+                                <ul><li>FS01</li></ul>
+                            </li>
+                            </ul>
+                        </li>
+                        <li>Groups
+                            <ul>
+                                <li>Security Groups</li>
+                                <li>Distribution Groups</li>
+                            </ul>
+                        </li>
+                        <li>Domain Controllers
+                            <ul>
+                                <li>DC01</li>
+                            </ul>
+                        </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+            <p>
+                With the users and computers sorted, it was time for file sharing.
+                I created Accounting, IT, and Sales folders at D:\Company\ on the FS01 server.
+                I shared the folders and allowed only the domain local groups to access their specific folders.
+                To test if it worked, I logged in as ajohnson and attempted to access \\FS01\Accounting.
+                It resolved, and I was able to create and modify files.
+                I then logged in as edavis, tried to access the same folder, and was denied permission.
+            </p>
+            <p>
+                This is pretty much as far as I've gotten. The next goal is to move everything to the server laptop. 
+                I bought more RAM and should be able to run the full network off of the one workstation. I just have to get it installed and the files moved over.
+                For now I will leave this here as it is, and update it when I get it up and working.
+            </p>
+        </div>
         <h3>TO BE CONTINUED</h3>
-        <p>
+        <!-- <p>
             ====================================================
             <br>   <i>I AM ACTIVELY WORKING ON THIS PAGE</i><br>
             <br>  <i>COME BACK IN THE FUTURE TO SEE THE REST</i><br>
             ====================================================
-        </p>
+        </p> -->
     </main>
     
 </body>
