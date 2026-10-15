@@ -90,3 +90,17 @@ nav a:hover {
     transform: scale(3);
     z-index: 10;
 }
+
+table {
+  /* Merges cell borders into a single clean line */
+  border-collapse: collapse; 
+  /* Draws the frame around the outside of the entire table */
+  border: 2px solid #111111; 
+}
+
+th, td {
+  /* Draws the boxes/grid around individual cells */
+  border: 1px solid #666666; 
+  /* Optional: Adds space between the cell content and the box border */
+  padding: 8px; 
+}

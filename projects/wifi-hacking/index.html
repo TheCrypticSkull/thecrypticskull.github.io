@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wifi Hacking</title>
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+    
+    <style>
+        
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About Me</a>
+        <a href="/projects/">Projects</a>
+    </nav>
+
+    <main>
+        <div>
+            <h1>WiFi Hacking</h1>
+            <p>
+                My school is doing a festival and my club P.I.N.G. is doing some projects to show off.
+                I suggested wifi hacking and man in the middle attack to demonstrate the dangers of http and public wifi.
+                I've done a little bit of work in this area a few years ago so I dont think it will be that hard to repeat.
+                I learned some of the things from the book <a href="">Network Basics for Hackers</a> by OccupyTheWeb.
+            </p>
+        </div>
+        <div>
+            <h2>Getting Started</h2>
+            <p>
+                From what I remembered, WEP to WPA2 hacking is relatively easy. Capture packet, decrypt password, and your in.
+                Now is it going to work this easy when I set this up, probably not, but I'll figure it out.
+                <br>To get started I checked what equipment I had. I have plenty of laptops, wifi cards that support monitor mode, and routers. 
+                This should be everything i need. I decided that I would attempt to use the web ui of a second router to act as a webserver I could get in the middle of.
+                I setup the main router with the network 192.168.1.1/24 and connected the dLink router to the lan of the ASUS router. 
+                I configured the dLink to allow remote web management and tested the connection from the main network.
+                It was a success, with that working it was time to remember how aircrack works.
+            </p>
+            <h3>What is aircrack-ng</h3>
+            <p>
+                Aircrack is a suite of tools used to evaluate and test wireless networks up to WPA2.
+                It is composed of 4 main tools
+            </p>
+            <table>
+                <tr><th>Name</th><th>Use</th></tr>
+                <tr><td>airmon-ng</td><td>Enables monitor mode for your wifi card</td></tr>
+                <tr><td>airodump-ng</td><td>Used to capture wifi packets</td></tr>
+                <tr><td>aireplay-ng</td><td>Used to send packets like for deauthentication</td></tr>
+                <tr><td>aircrack-ng</td><td>Used to crack the wifi keys</td></tr>
+            </table>
+            <h3>How do you use the tools</h3>
+            <p>
+                The process is rather simple. Put your network card into monitor mode with airmon-ng.
+                With the card in monitor mode you can use airodump-ng to capture surrounding wifi networks.
+                Once you find a target network you can write down the bssid (the MAC Address) and the SSID (the network name).
+                With these two things you can start to dial in the attack. 
+                Using airodump again you can specify the bssid and channel of the network to only listen to a single point of entry.
+                <br><br>
+                Now is the waiting game, you just have to listen and wait for someone to connect to the network and hope that you can capture the handshake.
+                This can take a while if the network isnt very active, but it can be sped up. Using the tool aireplay-ng allows you to broadcast packets on a network.
+                If you can find the MAC address of a devices on the network you can target it with a deauthentication attack. 
+                You basically pretend to be the router and broadcast the victim routers MAC address to the victim device telling it to disconnect.
+                This forces the victim device to reconnect allowing more opportunity to grab the handshake.
+            </p>
+        </div>
+        <p>
+            ====================================================
+            <br>   <i>I AM ACTIVELY WORKING ON THIS PAGE</i><br>
+            <br>  <i>COME BACK IN THE FUTURE TO SEE THE REST</i><br>
+            ====================================================
+        </p>
+    </main>
+    
+</body>
+</html>
